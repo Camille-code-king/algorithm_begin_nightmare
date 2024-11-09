@@ -1,0 +1,17 @@
+class Solution {
+public:
+    int lengthOfLongestSubsequence(vector<int>& nums, int target) {
+        int n=nums.size();
+        vector<vector<int>>f(n+1,vector<int>(target+1,INT_MIN));
+        f[0][0]=0;
+        for(int i=0;i<n;i++){
+            for(int c=0;c<=target;c++){
+                if(c<nums[i])
+                f[i+1][c]=f[i][c];
+                else
+                f[i+1][c]=max(f[i][c],f[i][c-nums[i]]+1);
+            }
+        }
+        return max(-1,f[n][target]);
+    }
+};
