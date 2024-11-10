@@ -1,0 +1,17 @@
+class Solution {
+public:
+    bool canPartition(vector<int>& nums) {
+        int sum = reduce(nums.begin(),nums.end());
+        if(sum%2)return 0;
+        int n=nums.size();
+        int c1=sum/2;
+        vector<int>f(c1+1,0);
+        f[0]=1;
+        for(int i=0;i<n;i++){
+            for(int c=c1;c>=0;c--){
+                f[c]= c>=nums[i]&&f[c-nums[i]]||f[c];
+            }
+        }
+        return f[c1];
+    }
+};
