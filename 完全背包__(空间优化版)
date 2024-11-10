@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int numSquares(int n) {
+        int numb=1;
+        while(pow(numb+1,2)<=n)
+        numb++;
+        if(n==1)
+        return 1;
+        vector<vector<int>>f(2,vector<int>(n+1,INT_MAX/2));
+        f[0][0]=0;
+        for(int i=0;i<numb;i++){
+            for(int c=0;c<=n;c++){
+                if(c<pow(i+1,2))
+                f[(i+1)%2][c]=f[i%2][c];
+                else
+                f[(i+1)%2][c]=min(f[i%2][c],f[(i+1)%2][c-pow(i+1,2)]+1);
+            }
+        }
+        return f[1][n]==INT_MAX/2?0:f[1][n];
+    }
+};
