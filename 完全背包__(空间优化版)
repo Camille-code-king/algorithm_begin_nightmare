@@ -16,6 +16,6 @@ public:
                 f[(i+1)%2][c]=min(f[i%2][c],f[(i+1)%2][c-pow(i+1,2)]+1);
             }
         }
-        return f[1][n]==INT_MAX/2?0:f[1][n];
+        return f[numb%2][n]==INT_MAX/2?0:f[numb%2][n];
     }
 };
