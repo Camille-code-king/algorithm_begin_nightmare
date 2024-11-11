@@ -1,0 +1,23 @@
+class Solution {
+public:
+    int trap(vector<int>& height) {
+        int n=height.size();
+        int l=0;
+        int r=n-1;
+        int maxh=*max_element(height.begin(),height.end());
+        int sum0=reduce(height.begin(),height.end());
+        while(l<r){
+            if(l<n-1&&height[l]<maxh&&l<r){
+            height[l+1]=max(height[l+1],height[l]);
+            l++;
+            }
+            else{
+            height[r-1]=max(height[r-1],height[r]);
+            r--;
+            }
+        }
+        int sum1=reduce(height.begin(),height.end());
+        int ans=sum1-sum0;
+        return ans;
+    }
+};
