@@ -1,0 +1,21 @@
+class Solution {
+public:
+    long long countSubarrays(vector<int>& nums, int k) {
+        int n=nums.size();
+        int maxv=*max_element(nums.begin(),nums.end());
+        long long ans=0;
+        int count=0;
+        int l=0;
+        for(int r=0;r<n;r++){
+            if(nums[r]==maxv)count++;
+            if(count>=k){
+                if(count>k)
+                l++;
+                while(nums[l]!=maxv)l++;
+                ans+=l+1;
+                count=k;
+            }
+        }
+        return ans;
+    }
+};
