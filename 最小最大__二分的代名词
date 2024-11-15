@@ -1,0 +1,29 @@
+#include<iostream>
+#include<algorithm>
+class Solution {
+public:
+    int maximumTastiness(vector<int>& price, int k) {
+        int n=price.size();
+        auto check=[&](int ans){
+            int judge=price[0];
+            int count=0;
+            for(int i=1;i<n;i++){
+                if(price[i]-judge>=ans){
+                    judge=price[i];
+                    count++;
+                }
+            }
+            if(count>=k-1)return true;
+            else return false;
+        };
+        int l=0;
+        sort(price.begin(),price.end());
+        int r=price[n-1]-price[0];
+        while(l<=r){
+            int mid=l+(r-l)/2;
+            if(check(mid))l=mid+1;
+            else r=mid-1;
+        }
+        return r;
+    }
+};
