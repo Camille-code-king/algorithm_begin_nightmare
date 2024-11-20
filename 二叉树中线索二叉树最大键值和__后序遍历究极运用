@@ -1,0 +1,29 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+ #include<limits>
+class Solution {
+    int ans=0;
+    tuple<int,int,int> dfs(TreeNode* root){
+        if(!root)return {INT_MAX,INT_MIN,0};
+        auto [l_min,l_max,l_val]=dfs(root->left);
+        auto [r_min,r_max,r_val]=dfs(root->right);
+        if(root->val<=l_max||root->val>=r_min)return {INT_MIN,INT_MAX,0};
+        int x=l_val+r_val+root->val;
+        ans=max(x,ans);
+        return {min(l_min,root->val),max(r_max,root->val),x};
+    }
+public:
+    int maxSumBST(TreeNode* root) {
+        dfs(root);
+        return ans;
+    }
+};
