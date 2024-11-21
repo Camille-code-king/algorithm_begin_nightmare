@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool carPooling(vector<vector<int>>& trips, int capacity) {
+        vector<int>diff(1001,0);
+        for(auto j:trips){
+            diff[j[1]]+=j[0];
+            diff[j[2]]-=j[0];
+        }
+        int s=0;
+        for(int i=0;i<1001;i++){
+            s+=diff[i];
+            if(s>capacity){
+                return false;
+            }
+        }
+        return true;
+    }
+};
